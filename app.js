@@ -27,12 +27,12 @@ connection.connect(function(err) {
   });
 
 
-//Editando registro com node
-  connection.query("UPDATE users SET nome = 'Cesar' WHERE id = 1", function(err, result){
+//Apagando registro com node
+  connection.query("DELETE FROM users WHERE id = 5", function(err, result){
     if(!err){
-        console.log("Usuario editado com sucesso");
+        console.log("Usuario apagado com sucesso");
     }else{
-        console.log("Erro ao editar usuario" + err);
+        console.log("Erro ao apagar usuario: " + err);
     }
 });
 
