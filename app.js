@@ -26,16 +26,15 @@ connection.connect(function(err) {
     }
   });
 
-//Inserindo dados na tabela
-connection.query("INSERT INTO users(nome, email) VALUES ('Paulo','paulo@hotmail.com')", function(err, result){
-                        if(!err){
-                            console.log("Usuario cadastrado com sucesso");
-                        }else{
-                            console.log("Erro ao cadastrar");
-                        }
-  });
 
-
+//Editando registro com node
+  connection.query("UPDATE users SET nome = 'Cesar' WHERE id = 1", function(err, result){
+    if(!err){
+        console.log("Usuario editado com sucesso");
+    }else{
+        console.log("Erro ao editar usuario" + err);
+    }
+});
 
 
 
