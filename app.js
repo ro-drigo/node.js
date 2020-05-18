@@ -1,42 +1,40 @@
-//Chamando o express
-const express = require("express");
+//importando o sequelize
+const Sequelize = require('sequelize');
 
-//Instanciando função do express
-const app = express();
-
-//Conexão com BD MySQL
-const mysql = require("mysql");
-
-//A partir do MySQL 8 apresenta erro ao utilizar o usuário root para conexão
-//Necessário criar novo usuário
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'rodrigoferreira',
-    password: '123456',
-    database: 'celke'
+//Criando conexão
+const sequelize = new Sequelize('celke', 'rodrigoferreira', '123456', {
+  host: 'localhost',
+  dialect: 'mysql'
 });
 
-//Verificando se a conexão está funcionando
-connection.connect(function(err) {
-    if (err) {
-      console.error('error connecting: ' + err.stack);
-      return;
-    }else{
-        console.log('conectado');
-    }
-  });
-
-
-//Apagando registro com node
-  connection.query("DELETE FROM users WHERE id = 5", function(err, result){
-    if(!err){
-        console.log("Usuario apagado com sucesso");
-    }else{
-        console.log("Erro ao apagar usuario: " + err);
-    }
+//Testando conexão
+sequelize.authenticate().then(function(){
+      console.log("Conexão realizada com sucesso");
+}).catch(function(err){
+      console.log('Erro ao realizar conexão: ' + err)
 });
 
+//Criando tabela
+const Pagamentos = sequelize.define('pagamentos', {
+  // Model attributes are defined here
+  nome: {
+    type: Sequelize.STRING,
+  },
+  valor: {
+    type: Sequelize.DOUBLE
+  }
+  // Other model options go here
+});
+
+//Criar a tabela
+//Pagamentos.sync({force: true});
+
+//Inserindo dados na tabela
+Pagamentos.create({
+  nome: "Energia",
+  valor: 220
+})
 
 
-//Iniciando servidor
-app.listen(8080);
+
+
