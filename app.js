@@ -1,40 +1,23 @@
-//importando o sequelize
-const Sequelize = require('sequelize');
+//importando as libs necessárias
+const express = require('express');
+const app = express();
+const handlebars = require("express-handlebars");
 
-//Criando conexão
-const sequelize = new Sequelize('celke', 'rodrigoferreira', '123456', {
-  host: 'localhost',
-  dialect: 'mysql'
+
+//Carregando handlebars com express
+app.engine('handlebars', handlebars({defaultLayout: 'main'}))
+app.set('view engine', 'handlebars')
+
+//rotas
+app.get('/add-pagamento', function(req, res){
+  res.render("add-pagamento");
 });
 
-//Testando conexão
-sequelize.authenticate().then(function(){
-      console.log("Conexão realizada com sucesso");
-}).catch(function(err){
-      console.log('Erro ao realizar conexão: ' + err)
+app.get('/pagamento', function(req, res){
+  res.render('pagamento');
 });
 
-//Criando tabela
-const Pagamentos = sequelize.define('pagamentos', {
-  // Model attributes are defined here
-  nome: {
-    type: Sequelize.STRING,
-  },
-  valor: {
-    type: Sequelize.DOUBLE
-  }
-  // Other model options go here
-});
-
-//Criar a tabela
-//Pagamentos.sync({force: true});
-
-//Inserindo dados na tabela
-Pagamentos.create({
-  nome: "Energia",
-  valor: 220
-})
 
 
-
-
+//Iniciando servidor
+app.listen(8080);
