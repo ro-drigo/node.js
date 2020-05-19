@@ -64,5 +64,16 @@ app.post('/add-pagamento', function(req, res){
   //res.send("Nome: " + req.body.nome + "<br>Valor: " + req.body.valor + "<br>"); 
 });
 
+//Rota para apagar registro com o botão usando id como parametro
+app.get('/del-pagamento/:id', function(req, res){
+  Pagamento.destroy({
+    where: { 'id': req.params.id }
+  }).then(function(){
+    res.redirect('/pagamento');
+  }).catch(function(erro){
+    res.send("Pagamento não foi apagado com sucesso");
+  })
+})
+
 //Iniciando servidor
 app.listen(8080);
