@@ -18,7 +18,7 @@
     "sequelize": "^5.21.10"
   },
   "devDependencies": {
-    "handlebars": "^4.7.6"
+    "handlebars": "^4.7.7"
   },
   "repository": {
     "type": "git",
